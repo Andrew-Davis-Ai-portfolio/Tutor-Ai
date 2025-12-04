@@ -432,3 +432,128 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// --- Flame Division Tutor AI → Certificate integration patch ---
+(function () {
+  function slugifyId(text) {
+    return text
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-zA-Z0-9\-]/g, "")
+      .toUpperCase();
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("submission-form");
+    var resultBox = document.getElementById("evaluation-result");
+
+    if (!form || !resultBox) return;
+
+    var nameInput = document.getElementById("student-name");
+    var lessonIdInput = document.getElementById("lesson-id");
+    var repoInput = document.getElementById("repo-url");
+    var explanationInput = document.getElementById("explanation");
+
+    var checkStructure = document.getElementById("check-structure");
+    var checkWiring = document.getElementById("check-wiring");
+    var checkFunction = document.getElementById("check-function");
+    var checkResponsibility = document.getElementById("check-responsibility");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Basic required-field check
+      var name = (nameInput.value || "").trim();
+      var repo = (repoInput.value || "").trim();
+      var lesson = (lessonIdInput.value || "").trim();
+      var expl = (explanationInput.value || "").trim();
+
+      if (!name || !repo || !lesson || !expl) {
+        resultBox.innerHTML = `
+          <div style="padding:1rem; border-radius:8px; background:#2b1515; color:#ffd7d7;">
+            <strong>⚠️ Incomplete submission.</strong>
+            <p>All fields in the Submission Console must be filled before Tutor AI can evaluate.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Self-check boxes
+      if (
+        !checkStructure.checked ||
+        !checkWiring.checked ||
+        !checkFunction.checked ||
+        !checkResponsibility.checked
+      ) {
+        resultBox.innerHTML = `
+          <div style="padding:1rem; border-radius:8px; background:#2b1f10; color:#ffe2b8;">
+            <strong>⏸ Self-Check not complete.</strong>
+            <p>All four checkboxes (Structure, Wiring, Function, Responsibility) must be true before requesting evaluation.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // If we reach here → evaluation accepted, build certificate URL
+      var today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      var courseTitle = lesson || "Flame Division Academy — Verified Track";
+
+      var params = new URLSearchParams();
+      params.set("name", name);
+      params.set("course", courseTitle);
+      params.set("date", today);
+
+      var baseId = name + "-" + courseTitle + "-" + today;
+      params.set("id", "FDA-" + slugifyId(baseId));
+
+      var certPath = "certificates/index.html?" + params.toString();
+      var certUrl = certPath; // relative (works inside this site)
+
+      resultBox.innerHTML = `
+        <div style="padding:1rem; border-radius:12px; background:#0f1b26; color:#f7f7ff; border:1px solid rgba(245,181,68,0.4);">
+          <h3 style="margin:0 0 .5rem 0;">✅ Evaluation Request Accepted</h3>
+          <p style="margin:0 0 .5rem 0;">
+            Submission received for <strong>${courseTitle}</strong>.
+          </p>
+          <p style="margin:0 0 1rem 0;">
+            You may now view your provisional Flame Division Academy certificate. Final status depends on manual or AI review of your system.
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;">
+            <a href="${certUrl}" target="_blank" rel="noopener"
+               class="fd-btn fd-btn-primary">
+              🎖 View Your Certificate
+            </a>
+            <button type="button" id="btn-copy-cert-link"
+                    class="fd-btn fd-btn-secondary">
+              🔗 Copy Certificate Link
+            </button>
+          </div>
+          <p style="margin-top:.75rem; font-size:.8rem; opacity:.8;">
+            Note: If your repo or behavior fails review, this certificate can be revoked. Flame Division certifies <em>systems</em>, not intentions.
+          </p>
+        </div>
+      `;
+
+      // Wire copy button
+      var copyBtn = document.getElementById("btn-copy-cert-link");
+      if (copyBtn && navigator.clipboard) {
+        copyBtn.addEventListener("click", function () {
+          var fullUrl = window.location.origin +
+            window.location.pathname.replace(/\/index\.html?$/, "/") +
+            certPath;
+
+          navigator.clipboard.writeText(fullUrl)
+            .then(function () {
+              copyBtn.textContent = "✅ Link Copied";
+              setTimeout(function () {
+                copyBtn.textContent = "🔗 Copy Certificate Link";
+              }, 2000);
+            })
+            .catch(function () {
+              alert("Could not copy link. Open the certificate and copy the URL from the browser.");
+            });
+        });
+      }
+    });
+  });
+})();
