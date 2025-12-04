@@ -1,1 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flame Division Academy Tutor AI — Lab Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
 
+    <!-- HEADER / BRAND -->
+    <header class="fda-header">
+      <div class="fda-logo">
+        <div class="fda-logo-mark">FD</div>
+        <div class="fda-logo-text">
+          <h1>Flame Division Academy Tutor AI</h1>
+          <p>Where execution becomes ecosystem.</p>
+        </div>
+      </div>
+
+      <div class="fda-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Lab Instructor Online</span>
+      </div>
+    </header>
+
+    <main class="fda-main">
+      <!-- LEFT: LESSON SCRIPT + TTS -->
+      <section class="fda-panel fda-panel-primary">
+        <h2>🎓 Guided Lesson Mode</h2>
+        <p class="panel-subtitle">
+          Follow the steps. Do not skip. Tutor AI will **not** certify without proof.
+        </p>
+
+        <div class="lesson-block">
+          <label for="lesson-select">Lesson Track</label>
+          <select id="lesson-select">
+            <!-- TODO: customize lesson names -->
+            <option value="lesson1">Lesson 1 — Create Your Repo</option>
+            <option value="lesson2">Lesson 2 — Wire HTML/CSS/JS</option>
+            <option value="lesson3">Lesson 3 — Add TTS & Interactions</option>
+          </select>
+        </div>
+
+        <div class="lesson-script">
+          <h3 id="lesson-title">Lesson Script</h3>
+          <div id="lesson-text" class="lesson-text">
+            <!-- Filled by tutor.js -->
+          </div>
+
+          <div class="lesson-actions">
+            <button id="btn-play" class="fd-btn fd-btn-primary">
+              🔊 Play Instructions
+            </button>
+            <button id="btn-stop" class="fd-btn fd-btn-secondary">
+              ⏹ Stop
+            </button>
+          </div>
+
+          <p class="tts-note">
+            If audio does not play, check browser permissions and try a desktop browser.
+          </p>
+        </div>
+      </section>
+
+      <!-- RIGHT: SUBMISSION CONSOLE -->
+      <section class="fda-panel fda-panel-secondary">
+        <h2>🧪 Submission Console</h2>
+        <p class="panel-subtitle">
+          Tutor AI evaluates **systems**, not intentions. Complete all fields.
+        </p>
+
+        <form id="submission-form" class="submission-form">
+          <div class="field">
+            <label for="student-name">Student Name</label>
+            <input id="student-name" type="text" placeholder="Your name" required />
+          </div>
+
+          <div class="field">
+            <label for="repo-url">GitHub Repo or Live URL</label>
+            <input id="repo-url" type="url"
+                   placeholder="https://github.com/username/repo or live demo URL"
+                   required />
+          </div>
+
+          <div class="field">
+            <label for="lesson-id">Lesson / Module</label>
+            <input id="lesson-id" type="text"
+                   placeholder="Ex: Lesson 2 — HTML Wiring" required />
+          </div>
+
+          <div class="field">
+            <label for="explanation">
+              Explain what you built in ≤ 5 sentences.
+            </label>
+            <textarea id="explanation" rows="4"
+                      placeholder="Describe structure, wiring, and what the system does."
+                      required></textarea>
+          </div>
+
+          <fieldset class="checklist">
+            <legend>Self-Check (all must be true)</legend>
+
+            <label class="checkbox">
+              <input type="checkbox" id="check-structure" />
+              <span>My file structure is clear and organized.</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="check-wiring" />
+              <span>HTML connects to CSS and JS with no dead links.</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="check-function" />
+              <span>The core feature runs without console errors.</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="check-responsibility" />
+              <span>The system is ethical, safe, and honest.</span>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="fd-btn fd-btn-primary fd-cta-pulse">
+            🚀 Request Evaluation
+          </button>
+        </form>
+
+        <div id="evaluation-result" class="evaluation-result" aria-live="polite">
+          <!-- JS will render evaluation summary text here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="fda-footer">
+      <p>
+        Flame Division Academy · Tutor AI Lab Console ·
+        <span class="footer-law">
+          “Language without structure is noise. Structure without ethics is danger.”
+        </span>
+      </p>
+    </footer>
+  </div>
+
+  <script src="tutor.js"></script>
+</body>
+</html>
