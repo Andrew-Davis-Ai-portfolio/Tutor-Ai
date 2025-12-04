@@ -24,15 +24,16 @@
 
       <!-- BODY -->
       <main class="cert-body">
-        <!-- DYNAMIC STUDENT INFO -->
         <p class="cert-line">This certifies that</p>
 
+        <!-- Dynamic student name -->
         <h2 id="cert-name" class="cert-name">
           Student Name
         </h2>
 
         <p class="cert-line">has successfully completed</p>
 
+        <!-- Dynamic course / program name -->
         <p id="cert-course" class="cert-course">
           Flame Division Academy — Master Systems Architect Track
         </p>
@@ -44,23 +45,6 @@
         <p class="cert-pillars">
           Structure · Wiring · Function · Responsibility · Clarity
         </p>
-
-        <h2 id="cert-name" class="cert-name">Student Name</h2>
-
-<p id="cert-course" class="cert-course">
-  Flame Division Academy — Core Systems Builder Track
-</p>
-
-<div class="cert-details">
-  <div>
-    <span class="meta-label">Date Issued:</span>
-    <span id="cert-date" class="meta-value"></span>
-  </div>
-  <div>
-    <span class="meta-label">Certificate ID:</span>
-    <span id="cert-id" class="meta-value"></span>
-  </div>
-</div>
 
         <p class="cert-law">
           “Language without structure is noise.
@@ -95,6 +79,7 @@
     </div>
   </div>
 
-  <script src="./certificate.js"></script>
+  <!-- IMPORTANT: relative path, no caps, same folder -->
+  <script src="certificate.js"></script>
 </body>
 </html>
