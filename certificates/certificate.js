@@ -1,5 +1,6 @@
 console.log("📜 Flame Division Certificate — JS loaded");
 
+// Helper to read query parameters with a default fallback
 function getParam(key, fallback = "") {
   const params = new URLSearchParams(window.location.search);
   const value = params.get(key);
@@ -7,6 +8,7 @@ function getParam(key, fallback = "") {
   return decodeURIComponent(value);
 }
 
+// Simple ID generator if none is provided
 function slugifyId(text) {
   return text
     .trim()
@@ -21,27 +23,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateEl = document.getElementById("cert-date");
   const idEl = document.getElementById("cert-id");
 
-  // --- Name ---
+  if (!nameEl || !courseEl || !dateEl || !idEl) {
+    console.warn("⚠️ Certificate elements not found. Check element IDs.");
+    return;
+  }
+
+  // --- NAME ---
   const studentName = getParam("name", "Student Name");
   nameEl.textContent = studentName;
 
-  // --- Course ---
-  const courseDefault = "Flame Division Academy — Core Systems Builder Program";
-  const courseName = getParam("course", courseDefault);
+  // --- COURSE ---
+  const defaultCourse =
+    "Flame Division Academy — Core Systems Builder Program";
+  const courseName = getParam("course", defaultCourse);
   courseEl.textContent = courseName;
 
-  // --- Date ---
+  // --- DATE ---
   const today = new Date();
   const isoToday = today.toISOString().slice(0, 10); // YYYY-MM-DD
   const dateValue = getParam("date", isoToday);
   dateEl.textContent = dateValue;
 
-  // --- Certificate ID ---
+  // --- CERTIFICATE ID ---
   const idParam = getParam("id", "");
   if (idParam) {
     idEl.textContent = idParam.toUpperCase();
   } else {
-    // generate a simple deterministic ID stub based on name + date
     const base = `${studentName}-${dateValue}`;
     const slug = slugifyId(base);
     idEl.textContent = `FDA-${slug}`;
