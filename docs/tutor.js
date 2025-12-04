@@ -1,5 +1,5 @@
 // tutor.js
-// Flame Division Academy Tutor AI — Lab Console + Certificate Redirect
+// Flame Division Academy Tutor AI — Lab Console + Certificate Link
 
 console.log("🧪 Tutor AI Lab Console loaded");
 
@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var text = Array.prototype
       .slice.call(lessonText.querySelectorAll("p"))
-      .map(function (p) { return p.textContent; })
+      .map(function (p) {
+        return p.textContent;
+      })
       .join(" ");
 
     if (!text.trim()) return;
@@ -112,8 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // -----------------------
-  // CERTIFICATE REDIRECT
+  // CERTIFICATE LINK BUILDER
   // -----------------------
+  var CERT_BASE =
+    "https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/certificates/index.html";
+
   function slugifyId(text) {
     return text
       .trim()
@@ -133,9 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var idBase = studentName + "-" + courseTitle + "-" + today;
     params.set("id", "FDA-" + slugifyId(idBase));
 
-    // 🔥 ABSOLUTE URL TO YOUR WORKING CERT PAGE
-    return "https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/certificates/index.html?" +
-      params.toString();
+    return CERT_BASE + "?" + params.toString();
   }
 
   // -----------------------
@@ -193,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // ✅ Passed checks – build cert URL and redirect
+      // ✅ Passed checks – build cert URL and show it
       var courseTitle = lesson || "Flame Division Academy — Verified Track";
       var certUrl = buildCertificateUrl(name, courseTitle);
 
@@ -202,17 +205,27 @@ document.addEventListener("DOMContentLoaded", function () {
           <div style="padding:1rem; border-radius:12px; background:#0f1b26; color:#f7f7ff; border:1px solid rgba(245,181,68,0.4);">
             <h3 style="margin:0 0 .5rem 0;">✅ Evaluation Request Accepted</h3>
             <p style="margin:0 0 .5rem 0;">
-              Redirecting you to your provisional certificate for
-              <strong>${courseTitle}</strong>…
+              Submission received for <strong>${courseTitle}</strong>.
+            </p>
+            <p style="margin:0 0 1rem 0;">
+              Use the link below to view your provisional Flame Division Academy certificate.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem;">
+              <a class="fd-btn fd-btn-primary" href="${certUrl}" target="_blank" rel="noopener">
+                🎖 View Your Certificate
+              </a>
+            </div>
+            <div style="font-size:.8rem; word-break:break-all; opacity:.9;">
+              <span style="opacity:.7;">Certificate URL:</span><br>
+              <span>${certUrl}</span>
+            </div>
+            <p style="margin-top:.75rem; font-size:.8rem; opacity:.8;">
+              Note: If your repo or behavior fails review, this certificate can be revoked.
+              Flame Division certifies <em>systems</em>, not intentions.
             </p>
           </div>
         `;
       }
-
-      // Small delay so they see the message, then jump
-      setTimeout(function () {
-        window.location.href = certUrl;
-      }, 600);
     });
   }
 });
