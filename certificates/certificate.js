@@ -1,13 +1,13 @@
 console.log("📜 Flame Division Certificate — JS loaded");
 
-// Read query parameters safely
+// Safe param reader (NO decoding)
 function getParam(key, fallback = "") {
   const params = new URLSearchParams(window.location.search);
   const value = params.get(key);
-  return value ? decodeURIComponent(value) : fallback;
+  return value || fallback;
 }
 
-// Simple ID generator if none is provided
+// ID generator
 function slugifyId(text) {
   return text
     .trim()
@@ -17,13 +17,15 @@ function slugifyId(text) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("🔥 DOM Loaded — Running Autofill");
+
   const nameEl = document.getElementById("cert-name");
   const courseEl = document.getElementById("cert-course");
   const dateEl = document.getElementById("cert-date");
   const idEl = document.getElementById("cert-id");
 
   if (!nameEl || !courseEl || !dateEl || !idEl) {
-    console.warn("⚠️ Certificate elements not found — check IDs in index.html.");
+    console.warn("⚠️ Missing certificate elements");
     return;
   }
 
@@ -39,16 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // DATE
   const today = new Date();
-  const isoToday = today.toISOString().slice(0, 10); // YYYY-MM-DD
+  const isoToday = today.toISOString().slice(0, 10);
   const dateValue = getParam("date", isoToday);
   dateEl.textContent = dateValue;
 
   // CERTIFICATE ID
   const idParam = getParam("id", "");
-  if (idParam) {
-    idEl.textContent = idParam.toUpperCase();
-  } else {
-    const base = `${studentName}-${dateValue}`;
-    idEl.textContent = "FDA-" + slugifyId(base);
-  }
+  idEl.textContent = idParam
+    ? idParam.toUpperCase()
+    : "FDA-" + slugifyId(`${studentName}-${dateValue}`);
 });
