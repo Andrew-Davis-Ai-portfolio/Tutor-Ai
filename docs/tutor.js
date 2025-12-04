@@ -1,5 +1,5 @@
 // tutor.js
-// Flame Division Academy Tutor AI — Lab Console + Certificate Link + Email Notify
+// Flame Division Academy Tutor AI — Lab Console + Email Notify (no direct cert button)
 
 console.log("🧪 Tutor AI Lab Console loaded");
 
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // CERTIFICATE LINK BUILDER
   // -----------------------
 
-  // 🔧 If you later change where the cert page lives, just update this one line.
+  // If you later move the cert system, just change this base URL.
   var CERT_BASE =
     "https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/certificates/index.html";
 
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // ✅ Passed checks – build cert URL and show it
+      // ✅ Passed checks – build cert URL (for your email) and show Notify-only UI
       var courseTitle = lesson || "Flame Division Academy — Verified Track";
       var certUrl = buildCertificateUrl(name, courseTitle);
 
@@ -210,18 +210,16 @@ document.addEventListener("DOMContentLoaded", function () {
               Submission received for <strong>${courseTitle}</strong>.
             </p>
             <p style="margin:0 0 1rem 0;">
-              Use the link below to view your provisional Flame Division Academy certificate.
+              Tap <strong>Notify Instructor</strong> to send your submission to Flame Division Academy
+              for manual review and official certification.
             </p>
             <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem;">
-              <a class="fd-btn fd-btn-primary" href="${certUrl}" target="_blank" rel="noopener">
-                🎖 View Your Certificate
-              </a>
               <button type="button" class="fd-btn fd-btn-secondary" id="btn-email-instructor">
                 📧 Notify Instructor
               </button>
             </div>
             <div style="font-size:.8rem; word-break:break-all; opacity:.9;">
-              <span style="opacity:.7;">Certificate URL:</span><br>
+              <span style="opacity:.7;">Provisional Certificate URL (for records):</span><br>
               <span>${certUrl}</span>
             </div>
             <p style="margin-top:.75rem; font-size:.8rem; opacity:.8;">
