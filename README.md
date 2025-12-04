@@ -1,5 +1,11 @@
 # 🧠 Flame Division Academy Tutor AI
 
+<p align="center">
+  <a href="https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/" target="_blank">
+    <img src="https://img.shields.io/badge/🔥%20Open%20Tutor%20AI%20Lab-Interactive%20Tutorial-orange?style=for-the-badge&logo=rocket&logoColor=white" />
+  </a>
+</p>
+
 Operational instructor for **Flame Division Academy**.  
 This repo does **not** teach theory — it verifies execution.
 
