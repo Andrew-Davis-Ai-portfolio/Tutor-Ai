@@ -6,6 +6,10 @@
   </a>
 </p>
 
+⚠️ This is a practice entry exam.
+Passing this does not grant certification.
+It grants permission to train.
+
 Operational instructor for **Flame Division Academy**.  
 This repo does **not** teach theory — it verifies execution.
 
