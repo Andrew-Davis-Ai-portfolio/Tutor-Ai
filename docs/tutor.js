@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // -----------------------
   // CERTIFICATE LINK BUILDER
   // -----------------------
-
   // If you later move the cert system, just change this base URL.
   var CERT_BASE =
     "https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/certificates/index.html";
@@ -203,32 +202,33 @@ document.addEventListener("DOMContentLoaded", function () {
       var certUrl = buildCertificateUrl(name, courseTitle);
 
       if (resultBox) {
-  resultBox.innerHTML = `
-    <div style="padding:1rem; border-radius:12px; background:#0f1b26; color:#f7f7ff; border:1px solid rgba(245,181,68,0.4);">
-      <h3 style="margin:0 0 .5rem 0;">✅ Evaluation Request Accepted</h3>
-      <p style="margin:0 0 .5rem 0;">
-        Submission received for <strong>${courseTitle}</strong>.
-      </p>
-      <p style="margin:0 0 1rem 0;">
-        Tap <strong>Notify Instructor</strong> to send your submission to Flame Division Academy
-        for manual review and official certification.
-      </p>
-      <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem;">
-        <button type="button" class="fd-btn fd-btn-secondary" id="btn-email-instructor">
-          📧 Notify Instructor
-        </button>
-      </div>
-      <div style="font-size:.8rem; word-break:break-all; opacity:.9;">
-        <span style="opacity:.7;">Provisional Certificate URL (for records):</span><br>
-        <span>${certUrl}</span>
-      </div>
-      <p style="margin-top:.75rem; font-size:.8rem; opacity:.8;">
-        Note: If your repo or behavior fails review, this certificate can be revoked.
-        Flame Division certifies <em>systems</em>, not intentions.
-      </p>
-    </div>
-  `;
-}
+        resultBox.innerHTML = `
+          <div style="padding:1rem; border-radius:12px; background:#0f1b26; color:#f7f7ff; border:1px solid rgba(245,181,68,0.4);">
+            <h3 style="margin:0 0 .5rem 0;">✅ Evaluation Request Accepted</h3>
+            <p style="margin:0 0 .5rem 0;">
+              Submission received for <strong>${courseTitle}</strong>.
+            </p>
+            <p style="margin:0 0 1rem 0;">
+              Tap <strong>Notify Instructor</strong> to send your submission to Flame Division Academy
+              for manual review and to <strong>activate your certificate link</strong>.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem;">
+              <button type="button" class="fd-btn fd-btn-secondary" id="btn-email-instructor">
+                📧 Notify Instructor
+              </button>
+            </div>
+            <div style="font-size:.8rem; word-break:break-all; opacity:.9;">
+              <span style="opacity:.7;">Provisional Certificate URL (link not currently activated):</span><br>
+              <span>${certUrl}</span>
+            </div>
+            <p style="margin-top:.75rem; font-size:.8rem; opacity:.8;">
+              Note: This URL is stored for records but is only considered active after instructor approval.
+              Flame Division certifies <em>systems</em>, not intentions.
+            </p>
+          </div>
+        `;
+      }
+
       // Wire email button after inserting HTML
       var emailBtn = document.getElementById("btn-email-instructor");
       if (emailBtn) {
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "- Function: ✅",
             "- Responsibility: ✅",
             "",
-            "Provisional Certificate URL:",
+            "Provisional Certificate URL (link not currently activated):",
             certUrl,
             "",
             "— Flame Division Tutor AI"
