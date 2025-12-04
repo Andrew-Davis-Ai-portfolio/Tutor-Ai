@@ -1,11 +1,10 @@
 console.log("📜 Flame Division Certificate — JS loaded");
 
-// Helper to read query parameters with a default fallback
+// Read query parameters safely
 function getParam(key, fallback = "") {
   const params = new URLSearchParams(window.location.search);
   const value = params.get(key);
-  if (!value) return fallback;
-  return decodeURIComponent(value);
+  return value ? decodeURIComponent(value) : fallback;
 }
 
 // Simple ID generator if none is provided
@@ -24,33 +23,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const idEl = document.getElementById("cert-id");
 
   if (!nameEl || !courseEl || !dateEl || !idEl) {
-    console.warn("⚠️ Certificate elements not found. Check element IDs.");
+    console.warn("⚠️ Certificate elements not found — check IDs in index.html.");
     return;
   }
 
-  // --- NAME ---
+  // NAME
   const studentName = getParam("name", "Student Name");
   nameEl.textContent = studentName;
 
-  // --- COURSE ---
+  // COURSE
   const defaultCourse =
-    "Flame Division Academy — Core Systems Builder Program";
+    "Flame Division Academy — Master Systems Architect Track";
   const courseName = getParam("course", defaultCourse);
   courseEl.textContent = courseName;
 
-  // --- DATE ---
+  // DATE
   const today = new Date();
   const isoToday = today.toISOString().slice(0, 10); // YYYY-MM-DD
   const dateValue = getParam("date", isoToday);
   dateEl.textContent = dateValue;
 
-  // --- CERTIFICATE ID ---
+  // CERTIFICATE ID
   const idParam = getParam("id", "");
   if (idParam) {
     idEl.textContent = idParam.toUpperCase();
   } else {
     const base = `${studentName}-${dateValue}`;
-    const slug = slugifyId(base);
-    idEl.textContent = `FDA-${slug}`;
+    idEl.textContent = "FDA-" + slugifyId(base);
   }
 });
