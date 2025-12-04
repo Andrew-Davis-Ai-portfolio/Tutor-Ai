@@ -5,35 +5,47 @@
   <title>Flame Division Academy — Digital Certificate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="certificate.css" />
+  <style>
+    /* Optional tiny debug text – you can remove once confirmed */
+    .cert-debug {
+      position: fixed;
+      bottom: 8px;
+      left: 12px;
+      font-size: 10px;
+      opacity: 0.5;
+      color: #f5b544;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                   "Segoe UI", sans-serif;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <div class="cert-wrapper">
     <div class="cert-page">
-      <!-- HEADER -->
       <header class="cert-header">
         <div class="cert-title-block">
-          <h1>Flame Division Academy</h1>
+          <h1>FLAME DIVISION ACADEMY</h1>
           <p class="cert-subtitle">Master Systems Architect Track</p>
         </div>
 
         <div class="cert-seal">
-          <img src="../assets/fda-master-systems-emblem.png"
-               alt="Flame Division Academy — Master Systems Architect Seal" />
+          <img
+            src="../assets/fda-master-systems-emblem.png"
+            alt="Flame Division Academy — Master Systems Architect Seal"
+          />
         </div>
       </header>
 
-      <!-- BODY -->
       <main class="cert-body">
         <p class="cert-line">This certifies that</p>
 
-        <!-- Dynamic student name -->
         <h2 id="cert-name" class="cert-name">
           Student Name
         </h2>
 
         <p class="cert-line">has successfully completed</p>
 
-        <!-- Dynamic course / program name -->
         <p id="cert-course" class="cert-course">
           Flame Division Academy — Master Systems Architect Track
         </p>
@@ -52,7 +64,6 @@
         </p>
       </main>
 
-      <!-- FOOTER -->
       <footer class="cert-footer">
         <div class="cert-meta">
           <div>
@@ -79,7 +90,71 @@
     </div>
   </div>
 
-  <!-- IMPORTANT: relative path, no caps, same folder -->
-  <script src="certificate.js"></script>
+  <!-- Visible JS status line -->
+  <div id="cert-debug" class="cert-debug"></div>
+
+  <!-- Inline script so there is ZERO path / loading issue -->
+  <script>
+    (function () {
+      // Tiny helper: safe param reader (NO decodeURIComponent — URLSearchParams already decodes)
+      function getParam(key, fallback) {
+        var params = new URLSearchParams(window.location.search || "");
+        var value = params.get(key);
+        return (value === null || value === "") ? fallback : value;
+      }
+
+      function slugifyId(text) {
+        return text
+          .trim()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-zA-Z0-9\-]/g, "")
+          .toUpperCase();
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        var nameEl = document.getElementById("cert-name");
+        var courseEl = document.getElementById("cert-course");
+        var dateEl = document.getElementById("cert-date");
+        var idEl = document.getElementById("cert-id");
+        var debugEl = document.getElementById("cert-debug");
+
+        if (!nameEl || !courseEl || !dateEl || !idEl) {
+          if (debugEl) debugEl.textContent = "⚠️ Missing cert elements";
+          return;
+        }
+
+        // NAME
+        var studentName = getParam("name", "Student Name");
+        nameEl.textContent = studentName;
+
+        // COURSE
+        var defaultCourse =
+          "Flame Division Academy — Master Systems Architect Track";
+        var courseName = getParam("course", defaultCourse);
+        courseEl.textContent = courseName;
+
+        // DATE
+        var today = new Date();
+        var isoToday = today.toISOString().slice(0, 10); // YYYY-MM-DD
+        var dateValue = getParam("date", isoToday);
+        dateEl.textContent = dateValue;
+
+        // CERTIFICATE ID
+        var idParam = getParam("id", "");
+        if (idParam) {
+          idEl.textContent = idParam.toUpperCase();
+        } else {
+          var base = studentName + "-" + dateValue;
+          idEl.textContent = "FDA-" + slugifyId(base);
+        }
+
+        if (debugEl) {
+          debugEl.textContent =
+            "JS ACTIVE · " +
+            decodeURIComponent(window.location.search || "").slice(1);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
