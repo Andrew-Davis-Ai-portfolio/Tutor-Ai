@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <title>Flame Division Academy — Digital Certificate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- certificate.css must be in the same /certificates/ folder -->
   <link rel="stylesheet" href="certificate.css" />
 </head>
 <body>
@@ -18,7 +17,6 @@
         </div>
 
         <div class="cert-seal">
-          <!-- emblem is in /assets/, so we go up one folder then into assets -->
           <img src="../assets/fda-master-systems-emblem.png"
                alt="Flame Division Academy — Master Systems Architect Seal" />
         </div>
@@ -26,17 +24,18 @@
 
       <!-- BODY -->
       <main class="cert-body">
+        <!-- DYNAMIC STUDENT INFO -->
         <p class="cert-line">This certifies that</p>
 
-        <div id="cert-name" class="cert-name">
+        <h2 id="cert-name" class="cert-name">
           Student Name
-        </div>
+        </h2>
 
         <p class="cert-line">has successfully completed</p>
 
-        <div id="cert-course" class="cert-course">
-          Flame Division Academy — Core Systems Builder Program
-        </div>
+        <p id="cert-course" class="cert-course">
+          Flame Division Academy — Master Systems Architect Track
+        </p>
 
         <p class="cert-line small">
           and has demonstrated verifiable competence in:
@@ -46,23 +45,8 @@
           Structure · Wiring · Function · Responsibility · Clarity
         </p>
 
-        <!-- DYNAMIC STUDENT INFO -->
-<div class="cert-student">
-  <p class="cert-line">This certifies that</p>
-
-  <h2 id="cert-name" class="cert-name">
-    Student Name
-  </h2>
-
-  <p class="cert-line">has successfully completed</p>
-
-  <p id="cert-course" class="cert-course">
-    Flame Division Academy — Master Systems Architect Track
-  </p>
-</div>
-
         <p class="cert-law">
-          “Language without structure is noise.  
+          “Language without structure is noise.
           Structure without ethics is danger.”
         </p>
       </main>
@@ -90,8 +74,7 @@
             <div class="sig-label">Flame Division Academy Tutor AI</div>
           </div>
         </div>
-        ...
-  </footer>
+      </footer>
     </div>
   </div>
 
