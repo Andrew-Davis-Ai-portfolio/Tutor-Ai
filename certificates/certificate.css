@@ -1,1 +1,219 @@
+/* Page wrapper */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #020308 0, #05070c 45%, #000 100%);
+}
 
+/* Center the certificate */
+.cert-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* A4-ish ratio certificate */
+.cert-page {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 1.414 / 1; /* close to A4 in landscape */
+  background: #0b1018;
+  color: #f9fafb;
+  border-radius: 18px;
+  padding: 32px 36px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(245, 181, 68, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner border line */
+.cert-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  pointer-events: none;
+}
+
+/* Subtle background circuitry */
+.cert-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.08),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(245, 181, 68, 0.08),
+      transparent 55%
+    );
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Layout stacking */
+.cert-header,
+.cert-body,
+.cert-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER */
+
+.cert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.cert-title-block h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fefce8;
+}
+
+.cert-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.cert-seal img {
+  width: 150px;
+  max-width: 38vw;
+  border-radius: 50%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+}
+
+/* BODY */
+
+.cert-body {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.cert-line {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: #e5e7eb;
+}
+
+.cert-line.small {
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.cert-name {
+  margin: 14px auto;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fef3c7;
+  padding: 6px 20px;
+  display: inline-block;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 181, 68, 0.8);
+  background: radial-gradient(circle at top, rgba(245, 181, 68, 0.16), transparent 70%);
+}
+
+.cert-course {
+  margin: 10px auto 4px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  max-width: 560px;
+  color: #e5e7eb;
+}
+
+.cert-pillars {
+  margin: 10px auto 0;
+  font-size: 0.98rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #bfdbfe;
+}
+
+.cert-law {
+  margin: 22px auto 0;
+  font-size: 0.9rem;
+  max-width: 520px;
+  color: #facc15;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* FOOTER */
+
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 48px;
+  gap: 24px;
+}
+
+.cert-meta {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.meta-label {
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.meta-value {
+  margin-left: 4px;
+}
+
+.cert-signatures {
+  display: flex;
+  gap: 40px;
+}
+
+.sig-block {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #e5e7eb;
+}
+
+.sig-line {
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(248, 250, 252, 0.9),
+    transparent
+  );
+  margin-bottom: 6px;
+}
+
+/* PRINT STYLES */
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+  .cert-wrapper {
+    padding: 0;
+  }
+  .cert-page {
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
