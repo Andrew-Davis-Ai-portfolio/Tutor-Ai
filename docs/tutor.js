@@ -1,5 +1,5 @@
 // tutor.js
-// Flame Division Academy Tutor AI — Lab Console + Certificate Link
+// Flame Division Academy Tutor AI — Lab Console + Certificate Link + Email Notify
 
 console.log("🧪 Tutor AI Lab Console loaded");
 
@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // -----------------------
   // CERTIFICATE LINK BUILDER
   // -----------------------
+
+  // 🔧 If you later change where the cert page lives, just update this one line.
   var CERT_BASE =
     "https://andrew-davis-ai-portfolio.github.io/Tutor-Ai/certificates/index.html";
 
@@ -214,6 +216,9 @@ document.addEventListener("DOMContentLoaded", function () {
               <a class="fd-btn fd-btn-primary" href="${certUrl}" target="_blank" rel="noopener">
                 🎖 View Your Certificate
               </a>
+              <button type="button" class="fd-btn fd-btn-secondary" id="btn-email-instructor">
+                📧 Notify Instructor
+              </button>
             </div>
             <div style="font-size:.8rem; word-break:break-all; opacity:.9;">
               <span style="opacity:.7;">Certificate URL:</span><br>
@@ -225,6 +230,47 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
           </div>
         `;
+      }
+
+      // Wire email button after inserting HTML
+      var emailBtn = document.getElementById("btn-email-instructor");
+      if (emailBtn) {
+        emailBtn.addEventListener("click", function () {
+          var subject = encodeURIComponent(
+            "New Tutor AI Submission — " + name
+          );
+
+          var bodyLines = [
+            "New submission from Flame Division Tutor AI:",
+            "",
+            "Student Name: " + name,
+            "Repo / URL: " + repo,
+            "Lesson / Module: " + lesson,
+            "",
+            "Explanation:",
+            expl,
+            "",
+            "Self-check:",
+            "- Structure: ✅",
+            "- Wiring: ✅",
+            "- Function: ✅",
+            "- Responsibility: ✅",
+            "",
+            "Provisional Certificate URL:",
+            certUrl,
+            "",
+            "— Flame Division Tutor AI"
+          ];
+
+          var body = encodeURIComponent(bodyLines.join("\n"));
+
+          window.location.href =
+            "mailto:flamedivision.academy@proton.me" +
+            "?subject=" +
+            subject +
+            "&body=" +
+            body;
+        });
       }
     });
   }
